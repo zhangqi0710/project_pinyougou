@@ -12,7 +12,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/sysLog")
 public class SysLogController {
-
+    /**
+     * 查询所有AOP日志信息
+     */
     @Autowired
     private SysLogService sysLogService;
     @RequestMapping("/findAll")
