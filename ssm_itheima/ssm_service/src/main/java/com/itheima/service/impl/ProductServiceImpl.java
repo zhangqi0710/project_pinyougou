@@ -4,6 +4,8 @@ import com.itheima.dao.ProductDao;
 import com.itheima.domain.Product;
 import com.itheima.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
+    @PreAuthorize("hasAnyRole('Test')")
     public List<Product> findAll() throws Exception {
         return productDao.findAll();
     }
@@ -23,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
      * @param product
      */
     @Override
+    @Secured("ROLE_TEST")
     public void save(Product product){
         productDao.save(product);
     }
