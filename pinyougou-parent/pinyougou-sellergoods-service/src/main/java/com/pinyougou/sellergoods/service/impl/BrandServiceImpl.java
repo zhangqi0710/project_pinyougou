@@ -1,18 +1,17 @@
 package com.pinyougou.sellergoods.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pinyougou.mapper.TbBrandMapper;
 import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.pojo.TbBrandExample;
-import com.pinyougou.sellerfoods.service.BrandService;
-import entity.PageResult;
+import com.pinyougou.sellergoods.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class BrandServiceImpl implements BrandService {
     @Autowired
@@ -101,5 +100,15 @@ public class BrandServiceImpl implements BrandService {
         List<TbBrand> tbBrands = tbBrandMapper.selectByExample(brandExample);
         PageInfo pageInfo = new PageInfo(tbBrands);
         return pageInfo;
+    }
+
+    /**
+     * 查询所有的品牌,给其name重新命名
+     * @return
+     */
+    @Override
+    public List<Map> selectOptionList() {
+        List<Map> selectOptionList = tbBrandMapper.selectOptionList();
+        return selectOptionList;
     }
 }

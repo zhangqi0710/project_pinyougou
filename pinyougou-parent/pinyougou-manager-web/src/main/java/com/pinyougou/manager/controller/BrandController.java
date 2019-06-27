@@ -3,8 +3,7 @@ package com.pinyougou.manager.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.github.pagehelper.PageInfo;
 import com.pinyougou.pojo.TbBrand;
-import com.pinyougou.sellerfoods.service.BrandService;
-import entity.PageResult;
+import com.pinyougou.sellergoods.service.BrandService;
 import entity.Result;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/brand")
@@ -109,5 +109,12 @@ public class BrandController {
     public PageInfo findByExample(@RequestBody TbBrand brand,int page,int size){
         PageInfo pageInfo = brandService.findByExample(brand, page, size);
         return pageInfo;
+    }
+
+    @RequestMapping("/selectOptionList")
+    @ResponseBody
+    public List<Map> selectOptionList(){
+        List<Map> selectOptionList = brandService.selectOptionList();
+        return selectOptionList;
     }
 }
