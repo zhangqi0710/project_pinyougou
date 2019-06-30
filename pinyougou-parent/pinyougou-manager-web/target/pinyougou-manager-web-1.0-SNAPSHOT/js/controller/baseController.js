@@ -2,7 +2,7 @@ app.controller("baseController",function ($scope) {
     //分页控件配置
     $scope.paginationConf = {
         currentPage: 1,
-        totalItems: 10,
+        totalItems: 0,
         itemsPerPage: 10,
         perPageOptions: [10, 20, 30, 40, 50],
         onChange: function () {

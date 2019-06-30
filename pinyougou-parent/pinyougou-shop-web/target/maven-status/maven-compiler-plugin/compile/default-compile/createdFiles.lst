@@ -1,4 +1,6 @@
 com\pinyougou\shop\controller\SellerController.class
 com\pinyougou\shop\controller\LoginName.class
-com\pinyougou\shop\service\AuthenticationService.class
 com\pinyougou\shop\controller\GoodsController.class
+com\pinyougou\service\AuthenticationService.class
+com\pinyougou\shop\controller\UploadController.class
+com\pinyougou\shop\controller\GoodsDescController.class

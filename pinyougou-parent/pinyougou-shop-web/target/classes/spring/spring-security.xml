@@ -18,16 +18,16 @@
 
     <!--是否启动spel表达式,默认为true-->
     <http use-expressions="false">
-
     <!-- 页面拦截规则 -->
         <!--访问什么资源需要什么角色-->
         <intercept-url pattern="/**" access="ROLE_SELLER" />
         <!--开启表单登录功能-->
         <!--always-use-default-target：指定了是否在身份验证通过后总是跳转到 default-target-url 属性指定的 URL-->
-        <!--login-processing-url="/login"-->
+        <!---->
         <form-login login-page="/shoplogin.html"
                     default-target-url="/admin/index.html"
                     authentication-failure-url="/shoplogin.html"
+                    login-processing-url="/login"
                     always-use-default-target="true"/>
         <csrf disabled="true"/>
 
@@ -49,7 +49,7 @@
 
 
     <!--认证类-->
-    <beans:bean id="AuthenticationService" class="com.pinyougou.shop.service.AuthenticationService">
+    <beans:bean id="AuthenticationService" class="com.pinyougou.service.AuthenticationService">
         <beans:property name="sellerService" ref="sellerService"></beans:property>
     </beans:bean>
 
@@ -59,6 +59,6 @@
     <dubbo:reference id="sellerService" interface="com.pinyougou.sellergoods.service.SellerService"></dubbo:reference>
 
     <!--配置密码加密类-->
-    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
 </beans:beans>

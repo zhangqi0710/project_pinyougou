@@ -1,9 +1,9 @@
-app.controller('shopLoginController',function ($scope, loginService) {
-    $scope.login = function () {
+app.controller('indexController',function($scope,loginService) {
+    $scope.login = function() {
         loginService.login().success(
-            function (response) {
+            function(response) {
                 $scope.loginName = response.loginName;
             }
         );
     }
-})
+});

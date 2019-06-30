@@ -1,5 +1,5 @@
  //控制层 
-app.controller('goodsController' ,function($scope,$controller   ,goodsService){	
+app.controller('goodsController' ,function($scope,$controller,uploadService,goodsService){
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -76,5 +76,49 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService){
 			}			
 		);
 	}
-    
-});	
+
+	//保存商品
+	$scope.add = function () {
+		$scope.entity.tbGoodsDesc.introduction=editor.html();
+		goodsService.add($scope.entity).success(
+			function (response) {
+				if (response.success){
+					//添加成功,清空添加框
+					alert('保存成功');
+					$scope.entity = {};
+					//清空富文本编辑框
+					editor.html("");
+				} else {
+					alert(response.success);
+				}
+			}
+		);
+	}
+
+	//上传图片
+	$scope.uploadFile = function () {
+		uploadService.uploadFile().success(
+			function (response) {
+				if (response.success){
+					//影响我们页面的值
+					$scope.image_entity.url = response.message;
+				} else {
+					alert(response.message);
+				}
+			}
+		);
+	}
+
+	//初始化
+	$scope.entity = {tbGoods:{},tbGoodsDesc:{itemImage:[]}};
+	//将当前上传的图片实体存入到图片列表
+	$scope.add_image_entity = function () {
+		$scope.entity.tbGoodsDesc.itemImage.push($scope.image_entity);
+	}
+
+
+	//列表中移除图片
+	$scope.remove_image_entity=function(index){
+		$scope.entity.tbGoodsDesc.itemImage.splice(index,1);
+	}
+});
