@@ -66,6 +66,4 @@ public interface ItemCatService {
 	public List<TbItemCat> findByGrand(Long parentId);
 
 
-
-	
 }

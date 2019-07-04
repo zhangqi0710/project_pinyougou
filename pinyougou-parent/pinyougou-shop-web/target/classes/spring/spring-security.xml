@@ -42,14 +42,14 @@
 
     <!-- 认证管理器 -->
     <authentication-manager>
-        <authentication-provider user-service-ref="AuthenticationService">
+        <authentication-provider user-service-ref="userDetailService">
             <password-encoder ref="bcryptEncoder"></password-encoder>
         </authentication-provider>
     </authentication-manager>
 
 
     <!--认证类-->
-    <beans:bean id="AuthenticationService" class="com.pinyougou.service.AuthenticationService">
+    <beans:bean id="userDetailService" class="com.pinyougou.service.UserDetailsServiceImpl">
         <beans:property name="sellerService" ref="sellerService"></beans:property>
     </beans:bean>
 

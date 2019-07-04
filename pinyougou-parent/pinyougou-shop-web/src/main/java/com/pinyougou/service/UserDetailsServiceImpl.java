@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 认证类
  */
-public class AuthenticationService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private SellerService sellerService;
 

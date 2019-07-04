@@ -1,5 +1,5 @@
  //控制层 
-app.controller('goodsController' ,function($scope,$controller   ,goodsService){	
+app.controller('goodsController' ,function($scope,$controller,goodsService,itemCatService){
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -55,7 +55,7 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService){
 	//批量删除 
 	$scope.dele=function(){			
 		//获取选中的复选框			
-		goodsService.dele( $scope.selectIds ).success(
+		goodsService.dele( $scope.selectIds).success(
 			function(response){
 				if(response.success){
 					$scope.reloadList();//刷新列表
@@ -64,9 +64,9 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService){
 			}		
 		);				
 	}
-	
-	$scope.searchEntity={};//定义搜索对象 
-	
+
+	//定义搜索对象
+	$scope.searchEntity={};
 	//搜索
 	$scope.search=function(page,rows){			
 		goodsService.search(page,rows,$scope.searchEntity).success(
@@ -76,5 +76,41 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService){
 			}			
 		);
 	}
+
+	//设置商品状态
+	$scope.status = ['未审核','审核通过','审核未通过','已关闭'];
+	//商品分类列表
+	$scope.itemCatList=[];
+
+	$scope.findItemCatList=function(){
+		itemCatService.findAll().success(
+			function (response) {
+				for (var i = 0; i < response.length; i++) {
+					$scope.itemCatList[response[i].id] = response[i].name;
+				}
+			}
+		);
+	}
+
+
+	//商品审核
+	$scope.updateStatus = function (status) {
+		goodsService.updateStatus($scope.selectIds,status).success(
+			function (response) {
+				//改变商品审核状态
+				if (response.success){
+					//审核完成
+					//刷新列表
+					$scope.reloadList();
+					//清空 ID 集合
+					$scope.selectIds=[];
+				} else {
+					//审核失败
+					alert(response.message);
+				}
+			}
+		);
+	}
+
     
 });	

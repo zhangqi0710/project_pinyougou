@@ -45,4 +45,16 @@ app.controller("baseController",function ($scope) {
         }
         return value;
     }
+
+
+    //在list集合中根据某key的值查询对象,有则为[{},{}...] 没有则为[]
+    $scope.searchObjectByKey = function (list, key, keyValue) {
+        //遍历list集合
+        for (var i = 0; i < list.length; i++) {
+                if (list[i][key] == keyValue) {
+                    return list[i];
+                }
+        }
+        return null;
+    }
 });

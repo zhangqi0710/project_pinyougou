@@ -39,7 +39,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/findPage")
-	public PageResult  findPage(int page,int rows){			
+	public PageResult findPage(int page,int rows){
 		return goodsService.findPage(page, rows);
 	}
 	
@@ -53,12 +53,12 @@ public class GoodsController {
 		//获取登录名
 		String name = SecurityContextHolder.getContext().getAuthentication().getName();
 		goods.getTbGoods().setSellerId(name);
-		try {
+		try{
 			goodsService.add(goods);
-			return new Result(true, "增加成功");
+			return new Result(true, "添加成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new Result(false, "增加失败");
+			return new Result(false, "添加失败");
 		}
 	}
 	
@@ -68,7 +68,17 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public Result update(@RequestBody TbGoods goods){
+	public Result update(@RequestBody Goods goods){
+		//校验是否是当前商家的id
+		//获取要修改的当前商品的商家ID
+		Goods goods2 = goodsService.findOne(goods.getTbGoods().getId());
+		String sellerId1 = goods2.getTbGoods().getSellerId();
+		//获取当前登录的商家 ID
+		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+		//如果传递过来的商家 ID 并不是当前登录的用户的 ID,则属于非法操作
+		if(!sellerId1.equals(sellerId) || !goods.getTbGoods().getSellerId().equals(sellerId) ){
+			return new Result(false, "操作非法");
+		}
 		try {
 			goodsService.update(goods);
 			return new Result(true, "修改成功");
@@ -84,7 +94,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/findOne")
-	public TbGoods findOne(Long id){
+	public Goods findOne(Long id){
 		return goodsService.findOne(id);		
 	}
 	
@@ -105,14 +115,18 @@ public class GoodsController {
 	}
 
 	/**
-	 * 查询+分页
+	 * 条件查询+分页
 	 * @param goods
 	 * @param page
 	 * @param rows
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbGoods goods, int page, int rows  ){
+	public PageResult search(@RequestBody TbGoods goods, int page, int rows){
+		//获取登录用户id
+		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+		//登录用户只能查询自己的所有商品信息
+		goods.setSellerId(sellerId);
 		return goodsService.findPage(goods, page, rows);		
 	}
 	

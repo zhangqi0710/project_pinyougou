@@ -80,7 +80,6 @@
             <artifactId>servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>com.pinyougou</groupId>
             <artifactId>pinyougou-sellergoods-interface</artifactId>
@@ -99,7 +98,6 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -117,7 +115,5 @@
             </plugin>
         </plugins>
     </build>
-
-
 
 </project>
