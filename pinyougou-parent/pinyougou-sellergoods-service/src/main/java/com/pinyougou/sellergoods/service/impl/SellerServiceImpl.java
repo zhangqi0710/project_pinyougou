@@ -12,12 +12,14 @@ import com.pinyougou.pojo.TbSellerExample.Criteria;
 import com.pinyougou.sellergoods.service.SellerService;
 
 import entity.PageResult;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 服务实现层
  * @author Administrator
  *
  */
+@Transactional
 @Service
 public class SellerServiceImpl implements SellerService {
 
