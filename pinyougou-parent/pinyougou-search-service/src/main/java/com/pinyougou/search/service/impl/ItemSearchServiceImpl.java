@@ -255,6 +255,4 @@ public class ItemSearchServiceImpl implements ItemSearchService {
         solrTemplate.delete(query);
         solrTemplate.commit();
     }
-
-
 }

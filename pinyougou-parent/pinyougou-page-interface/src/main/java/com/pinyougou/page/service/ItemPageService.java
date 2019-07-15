@@ -1,6 +1,5 @@
 package com.pinyougou.page.service;
 
-import java.io.IOException;
 
 public interface ItemPageService {
     /**
@@ -8,5 +7,12 @@ public interface ItemPageService {
      * @param goodIds
      * @return
      */
-    public Boolean genItemHtml(Long goodIds) throws IOException;
+    public Boolean genItemHtml(Long goodIds);
+
+    /**
+     * 删除静态模型
+     * @param goodIds
+     * @return
+     */
+    public Boolean deleteItemHtml(Long[] goodIds);
 }
