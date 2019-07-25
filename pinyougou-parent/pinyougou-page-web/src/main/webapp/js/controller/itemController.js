@@ -1,4 +1,4 @@
-app.controller("itemController",function ($scope) {
+app.controller("itemController",function ($scope,$http) {
 	
 	//数量加减
 	$scope.addCollection = function(index){
@@ -10,7 +10,6 @@ app.controller("itemController",function ($scope) {
 	
 	//定义一个对象,用于存储用户选择的规格
 	$scope.selectSpec = {};
-	
 
 	//判断某规格选项是否被用户选中
 	$scope.isSelect = function(key,value){
@@ -20,8 +19,7 @@ app.controller("itemController",function ($scope) {
 			return false;
 		}
 	}
-	
-	
+
 	//定义变量
 	$scope.sku = {};
 	//定义默认的SKU
@@ -29,16 +27,14 @@ app.controller("itemController",function ($scope) {
 		$scope.sku = itemList[0];
 		$scope.selectSpec = JSON.parse(JSON.stringify($scope.sku.spec));
 	}
-	
-	
+
 	//将选择的规格添加到对象中
 	$scope.selectSpecification = function(key,value){
 		$scope.selectSpec[key]=value;
 		//调用匹配方法
 		$scope.searchSku();
 	}
-	
-	
+
 	//判断用户选择的规格匹配查询的itemList
 	$scope.searchSku = function(){
 		for(var i=0;i<itemList.length;i++){
@@ -49,8 +45,7 @@ app.controller("itemController",function ($scope) {
 		}
 		$scope.sku={id:0,title:'--------',price:0};//如果没有匹配的
 	}
-	
-	
+
 	//定义一个方法,判断两个对象是否相等
 	$scope.matchSku = function(map1,map2){
 		for(var key in map1){
@@ -64,6 +59,20 @@ app.controller("itemController",function ($scope) {
 			}
 		}
 		return true;
+	}
+
+	//跨域请求购物车
+	$scope.addGoodsToCart=function() {
+		$http.get('http://localhost:9107/cart/addGoodsToCartList.do?itemId='+$scope.sku.id+'&num='+$scope.num,{'withCredentials':true}).success(
+			function (response) {
+				if (response.success){
+					//商品成功添加购物车,跳转到购物车页面
+					location.href="http://localhost:9107/cart.html";
+				} else {
+					alert(response.message);
+				}
+			}
+		);
 	}
 	
 });
